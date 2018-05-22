@@ -22,7 +22,7 @@ public abstract class Player{
    * @return (String) player's name
    */
   public String getNom(){
-    return this.nom;
+
   }
 
   /**
@@ -30,11 +30,7 @@ public abstract class Player{
    * @param nom (String) new player's name
    */
   public void setNom(String nom){
-    if (nom != null) {
-      this.nom = nom;
-    } else{
-      System.out.println("Player - setNom - Parameter Error ");
-    }
+
   }
 
   /**
@@ -42,7 +38,7 @@ public abstract class Player{
    * @return (PionColor) player's team color
    */
   public PionColor getTeam(){
-    return this.team;
+
   }
 
   /**
@@ -50,11 +46,7 @@ public abstract class Player{
    * @param team (PionColor)
    */
   public void setTeam(String team){
-    if (team !=null) {
-      this.team = team;
-    } else{
-      System.out.println("Player - setTeam - Parameter Error");
-    }
+
   }
 
   /**
@@ -62,10 +54,7 @@ public abstract class Player{
    * @return (boolean) true if winner false otherwise
    */
   public boolean checkWin(){
-    boolean check = false;
-    if (this.point >= 12) {
-      check = true;
-    }
+
   }
 
   /**
@@ -73,11 +62,7 @@ public abstract class Player{
    * @param amount (int) the amount of point to add at the attribute point of the player
    */
   public void addPoint(int amount){
-    if (amount >= 1) {
-      this.point = this.point + amount;
-    } else {
-      System.out.println("Player - addPoint - Parameter error");
-    }
+
   }
 
   /**
