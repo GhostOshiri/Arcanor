@@ -92,7 +92,7 @@ public abstract class Player{
    * Initializes the pawn of the player on the board
    */
   private void initTabPion(){
-
+    
   }
 
   /**
