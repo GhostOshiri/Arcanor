@@ -97,8 +97,8 @@ public class Board {
         System.out.println("Et le pion est de l'équipe adverse !");
         free =true;
       } else{
-        System.out.println("Le pion est de la meme équipe");
-        free = true;
+        System.out.println("Le pion est de la meme équipe !");
+        free = false;
       }
     }
 
@@ -108,13 +108,14 @@ public class Board {
    * ToString is used to display the board
    * @return (String) The board display
    */
-  public String toString() {}
+  public String toString() {
     String ret = new String("Le plateau mesure" + this.getSIZE_X() + "x" + this.getSIZE_Y() + "\n");
     return ret;
+  }
   /**
    * Clone the board to securize it
    * @return (Board) the cloned Board
    */
-  public Board clone() {}
+  public Board clone() {
     Board clone = this.getBoard();
 }
