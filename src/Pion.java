@@ -139,23 +139,27 @@ public class Pion {
      * Get the value of the attribute estMange.
      * True if the pawn is eaten false otherwise
      */
-    public boolean getEstMange() {}
+    public boolean getEstMange() {
       return this.estMange;
+    }
+
     /**
      * Set the value of the attribute estMange.
      * True if the pawn has to be eaten false otherwise
      */
-    public void setEstMange(boolean estMange){}
+    public void setEstMange(boolean estMange) {
       if (estMange != null) {
         this.estMange = estMange;
       } else{
         System.out.println("Pion-setEstMange()-Erreur de parametres");
       }
+    }
+
     /**
      * Set the value of the attribute aMange.
      * The attribute is set if the pawn is containing another pawn.
      */
-    public void setAMange(Pion aManger) {}
+    public void setAMange(Pion aManger) {
       if (this.aMange = null) {
         if (this.getValue() > aManger.getValue()) {
           this.aMange = aManger;
@@ -166,12 +170,16 @@ public class Pion {
       } else{
         System.out.println("Vous ne pouvez manger ce pion car le votre en contient déja un !");
       }
+    }
+
     /**
      * Get the value of the attribute estMange.
      * @return (Pion) The attribute is not null if the pawn is containing another pawn.
      */
-    public Pion getAMange() {}
+    public Pion getAMange() {
       return this.aMange;
+    }
+
     /**
      * Clone the Pion to securize it
      * @return (Pion) the cloned Pion
