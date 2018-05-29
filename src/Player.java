@@ -5,16 +5,16 @@ package arcanor;
  */
 public abstract class Player{
   protected String name;
-  protected PionColor team;
+  protected PawnColor team;
   protected int point;
 
   /**
    * Contructor of the Player class. Initializes all the attributes of the class
    * @param name (String) player's name
-   * @param team (PionColor) player's team color
+   * @param team (PawnColor) player's team color
    * @param point (int) player's amount of point
    */
-  public Player(String name, PionColor team, int point){
+  public Player(String name, PawnColor team, int point){
 
   }
   /**
@@ -39,15 +39,15 @@ public abstract class Player{
 
   /**
    * Used to have the color of the player's team color
-   * @return (PionColor) player's team color
+   * @return (PawnColor) player's team color
    */
-  public PionColor getTeam(){
+  public PawnColor getTeam(){
     return this.team;
   }
 
   /**
    * Used to set the color of the player's team
-   * @param team (PionColor)
+   * @param team (PawnColor)
    */
   public void setTeam(String team){
     if (team !=null) {
@@ -91,7 +91,7 @@ public abstract class Player{
   /**
    * Initializes the pawn of the player on the board
    */
-  private void initTabPion(){
+  private void initTabPawn(){
     
   }
 

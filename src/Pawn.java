@@ -1,45 +1,44 @@
 package arcanor;
 
 /**
- * Pion class
+ * Pawn class
  */
-public class Pion {
+public class Pawn {
 
     private int value;          // the value of the pawn [1-4].
     private int posX;           // the position on the X axis of the pawn.
     private int posY;           // the position on the Y axis of the pawn.
-    private boolean etat;       // state of the pawn, if he is on the board or not.
-    private boolean estMange;   // boolean who's definding if the pawn is eatean by another.
-    private Pion aMange;        // if this attribute is set, the Pion has another pawn under him.
-    private PionColor color;
+    private boolean isEaten;    // boolean who's definding if the pawn is eatean by another.
+    private Pawn hasEat;        // if this attribute is set, the Pawn has another pawn under him.
+    private PawnColor color;    // Color of the pawn(BLACK,WHITE,NONE)
 
     /**
-     * Constructor of the Pion method
+     * Constructor of the Pawn class
      * Initializes value and position
      * @param value (int) the value of the pawn
      * @param posX (int) the position on the X axis of the pawn
      * @param posY (int) the position on the Y axis of the pawn
-     * @param aMange (Pion)
-     * @param estMange (boolean)
+     * @param hasEat (Pawn)
+     * @param isEaten (boolean)
      */
-    public Pion(int value, int posX, int posY,PionColor color,Pion aMange,boolean estMange) {
+    public Pawn(int value, int posX, int posY,PawnColor color,Pawn hasEat,boolean isEaten) {
       if ((value >= 1) && (value <=4) && (posX >= 0) && (posX <= 7) && (posY >= 0) && (posY <= 6) && (color != null)) {
         this.value = value;
         this.posX = posX;
         this.posY = posY;
         this.color = color;
-        this.aMange = aMange;
-        this.estMange = estMange;
+        this.hasEat = hasEat;
+        this.isEaten = isEaten;
       } else {
-        System.out.println("Pion - Constructor : error parameter");
+        System.out.println("Pawn - Constructor : error parameter");
       }
     }
 
     /**
      * Get the color of the pawn
-     * @return (PionColor) color
+     * @return (PawnColor) color
      */
-    public PionColor getColor(){
+    public PawnColor getColor(){
       return this.color;
     }
 
@@ -47,11 +46,11 @@ public class Pion {
      * Set the color of the pawn
      * @param color color of the pawn
      */
-    public void setColor(PionColor color) {
+    public void setColor(PawnColor color) {
       if (color != null) {
         this.color = color;
       } else {
-        System.out.println("Pion - setColor : error parameter");
+        System.out.println("Pawn - setColor : error parameter");
       }
     }
 
@@ -71,7 +70,7 @@ public class Pion {
       if ((value >= 1) && (value <=4)) {
         this.value = value;
       } else {
-        System.out.println("Pion - setValue : error parameter");
+        System.out.println("Pawn - setValue : error parameter");
       }
     }
 
@@ -99,7 +98,7 @@ public class Pion {
      * if the position is not possible then the line concerned will contain -1
      * @return (int [][]) Matrix containing the position couples allowed to receive the pawn on.
      */
-    public int[][] posPossible(Board board) {
+    public int[][] possiblePos(Board board) {
       if (board != null) {
         int[][] deplacement = new int[8][2];
         int xMove = -1;
@@ -136,56 +135,56 @@ public class Pion {
     public void changePos(char[][] board, int newPosX, int newPosY) {}
 
     /**
-     * Get the value of the attribute estMange.
+     * Get the value of the attribute isEaten.
      * True if the pawn is eaten false otherwise
      */
-    public boolean getEstMange() {
-      return this.estMange;
+    public boolean getisEaten() {
+      return this.isEaten;
     }
 
     /**
-     * Set the value of the attribute estMange.
+     * Set the value of the attribute isEaten.
      * True if the pawn has to be eaten false otherwise
      */
-    public void setEstMange(boolean estMange) {
-      if (estMange != null) {
-        this.estMange = estMange;
+    public void setisEaten(boolean isEaten) {
+      if (isEaten != null) {
+        this.isEaten = isEaten;
       } else{
-        System.out.println("Pion-setEstMange()-Erreur de parametres");
+        System.out.println("Pawn-setisEaten()-Erreur de parametres");
       }
     }
 
     /**
-     * Set the value of the attribute aMange.
+     * Set the value of the attribute hasEat.
      * The attribute is set if the pawn is containing another pawn.
      */
-    public void setAMange(Pion aManger) {
-      if (this.aMange = null) {
-        if (this.getValue() > aManger.getValue()) {
-          this.aMange = aManger;
-          System.out.println("Vous avez mangé le Pion : " + aManger.getValue() +"\n");
+    public void sethasEat(Pawn hasEatr) {
+      if (this.hasEat = null) {
+        if (this.getValue() > hasEatr.getValue()) {
+          this.hasEat = hasEatr;
+          System.out.println("Vous avez mangé le Pawn : " + hasEatr.getValue() +"\n");
         } else{
-          System.out.println("Vous ne pouvez manger le pion car il est plus gros que le votre !");
+          System.out.println("Vous ne pouvez manger le Pawn car il est plus gros que le votre !");
         }
       } else{
-        System.out.println("Vous ne pouvez manger ce pion car le votre en contient déja un !");
+        System.out.println("Vous ne pouvez manger ce Pawn car le votre en contient déja un !");
       }
     }
 
     /**
-     * Get the value of the attribute estMange.
-     * @return (Pion) The attribute is not null if the pawn is containing another pawn.
+     * Get the value of the attribute isEaten.
+     * @return (Pawn) The attribute is not null if the pawn is containing another pawn.
      */
-    public Pion getAMange() {
-      return this.aMange;
+    public Pawn gethasEat() {
+      return this.hasEat;
     }
 
     /**
-     * Clone the Pion to securize it
-     * @return (Pion) the cloned Pion
+     * Clone the Pawn to securize it
+     * @return (Pawn) the cloned Pawn
      */
-    public Pion clone() {
-      Pion ret = new Pion(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.getAMange(),this.getEstMange());
+    public Pawn clone() {
+      Pawn ret = new Pawn(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.gethasEat(),this.getisEaten());
       return ret;
     }
 }

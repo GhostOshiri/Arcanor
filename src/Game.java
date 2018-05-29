@@ -4,16 +4,16 @@ public class Game implements IGame{
 
   //Definition des attributs
 
-  private int nbTour;           //Durée de la partie en tour
-  private Mode mode;            // mode de l'interface Mode
-  private Player player1;       // premier joueur
-  private Player player2;       // deuxiemme joueur
-  private Player current;       // joueur devant jouer a ce tour ci
-  private Extension aExtension; // Extensions rajoutées
-  private Option aOption;       // Options de jeu
-  private Board aBoard;         // Board sur lequel se déroule le jeu.
+  private int nbTurn;           //Time of the game in turn
+  private Mod mod;            // mod of the Mod interface
+  private Player player1;       // first player
+  private Player player2;       // Second player
+  private Player current;       // Current player at this turn
+  private Extension aExtension; // DLC added
+  private Option aOption;       // Game options
+  private Board aBoard;         // Board of the game
 
-  //Definitions des méthodes héritées de l'interface
+  //Implementation of the method herited by the interface
 
   /**
    * Save the game.
@@ -49,27 +49,25 @@ public class Game implements IGame{
    */
   public void description(){}
 
-  //Defintions des methodes de classe
+  //Class' methods
 
   /**
    * Game Contructor
    * Initializes the game
    * @param  TODO
    */
-  public Game(TODO) {
+  public Game(String nameP1,PawnColor color1,int point1,String nameP2,PawnColor color2,int point2) {
     this.aBoard = new Board();
-    this.player1 = new Player(namePlayer1,PionColor.RED,0);
-    this.player2 = new Player(namePlayer2,PionColor.YELLOW,0);
-    
+
   }
 
   /**
    * Create a player
    * @param name (String) player's name
-   * @param team (PionColor) player's team color
+   * @param color (PawnColor) player's team color
    * @param point (int) player's amount of point
    */
-  private void createPlayer(String name, PionColor team, int point){}
+  private void createPlayer(String name, PawnColor color, int point){}
 
   /**
    * Menu containing option start quit and other informations

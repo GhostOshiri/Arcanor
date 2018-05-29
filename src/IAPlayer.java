@@ -11,7 +11,7 @@ public class IAPlayer extends Player{
    * @param (String) team of the player
    * @param (int) point of the player
    */
-  public IAPlayer(String player, String team, int point){
+  public IAPlayer(String player, String color, int point){
     super(name,team,point);
   }
 

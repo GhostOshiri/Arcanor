@@ -1,6 +1,6 @@
 public class Board {
 
-  private Pion[][] board;     //  game board
+  private Pawn[][] board;     //  game board
   private final int SIZE_X;   //  board size on the x-axis
   private final int SIZE_Y;   //  board size on the y-axis
 
@@ -20,14 +20,15 @@ public class Board {
   private void initBoard() {
     for (int i=0;i<getSIZE_Y();i++) {
       for (int j=0;j<getSIZE_X();j++) {
-        board[i][j] = new Pion(null,i,j,NULL,null,false);
+        board[i][j] = new Pawn(null,i,j,NONE,null,false);
       }
     }
+
     i=0;
     j=0;
     for (i;i<2;i++) {
       for (j;j<getSIZE_X();j++) {
-        board[i][j] = new Pion() //TODO LES PIONS NOIRS METHODE INIT TAB PION DE PLAYER ????
+        board[i][j] = new Pawn() //TODO LES Pions NOIRS METHODE INIT TAB Pawn DE PLAYER ????
       }
     }
 
@@ -35,7 +36,7 @@ public class Board {
     j=0;
     for (i;i<2;i++) {
       for (j;j<(getSIZE_Y()-2);j++) {
-        board[i][j] = new Pion() //TODO LES PIONS BLANCS
+        board[i][j] = new Pawn() //TODO LES PawnS BLANCS
       }
     }
 
@@ -44,7 +45,7 @@ public class Board {
    * Get the board
    * @return (char[][]) The board
    */
-  public Pion[][] getBoard() {
+  public Pawn[][] getBoard() {
     return this.board;
   }
 
@@ -52,7 +53,7 @@ public class Board {
    * Set the board
    * @param board (char[][]) New board
    */
-  public void setBoard(Pion[][] board) {
+  public void setBoard(Pawn[][] board) {
     if (board != null) {
       if ((board.getSIZE_X%2 ==0)&&(board.getSIZE_X%2 ==1)) {
         this.board = board;
@@ -80,24 +81,24 @@ public class Board {
    * Check if a case of the board is free, and the color of the pawn on this case
    * @param  x (int) X-axis coordonate of the case to check
    * @param  y (int) Y-axis coordonate of the case to check
-   * @param  color (PionColor) Color of the pawn on the case
+   * @param  color (PawnColor) Color of the pawn on the case
    * @return (boolean) true if the case is free, false otherwise
    */
-  public boolean isFree(int x,int y,PionColor color) {
+  public boolean isFree(int x,int y,PawnColor color) {
     boolean free;
     if (board[x][y].getColor() == NULL) {
       free = true;
     } else{
-      System.out.println("La case est déja prise par un pion !\n");
+      System.out.println("La case est déja prise par un Pawn !\n");
     }
 
     if (board[x][y].getValue() < this.getValue()) {
-      System.out.println("La case contient un pion de valeur inférieure");
+      System.out.println("La case contient un Pawn de valeur inférieure");
       if (board[x][y].getColor() != this.getColor()) {
-        System.out.println("Et le pion est de l'équipe adverse !");
+        System.out.println("Et le Pawn est de l'équipe adverse !");
         free =true;
       } else{
-        System.out.println("Le pion est de la meme équipe !");
+        System.out.println("Le Pawn est de la meme équipe !");
         free = false;
       }
     }
