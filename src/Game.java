@@ -28,12 +28,21 @@ public class Game implements IGame{
   /**
    * start the game
    */
-  public void start(){}
+  public void start() {
+
+  }
 
   /**
    * End the game
+   * @return (boolean) true if the game is end false otherwise
    */
-  public void endOfGame(){}
+  public boolean endOfGame() {
+    boolean end = false;
+    if ((player1.checkWin()) || (player2.checkWin())) {
+      end = true;
+    }
+    return end;
+  }
 
   /**
    * Description of the game
@@ -47,7 +56,12 @@ public class Game implements IGame{
    * Initializes the game
    * @param  TODO
    */
-  public Game(TODO){}
+  public Game(TODO) {
+    this.aBoard = new Board();
+    this.player1 = new Player(namePlayer1,PionColor.RED,0);
+    this.player2 = new Player(namePlayer2,PionColor.YELLOW,0);
+    
+  }
 
   /**
    * Create a player
