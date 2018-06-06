@@ -179,6 +179,16 @@ public class Pawn {
       return this.hasEat;
     }
 
+    public String toString() {
+      String ret = " . ";
+      if (this.color == PawnColor.WHITE) {
+        ret = " W ";
+      } else if (this.color == PawnColor.BLACK){
+        ret = " B ";
+      }
+      return ret;
+    }
+
     /**
      * Clone the Pawn to securize it
      * @return (Pawn) the cloned Pawn

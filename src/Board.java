@@ -1,16 +1,14 @@
 public class Board {
 
   private Pawn[][] board;     //  game board
-  private final int SIZE_X;   //  board size on the x-axis
-  private final int SIZE_Y;   //  board size on the y-axis
+  private final int SIZE_X = 8;   //  board size on the x-axis
+  private final int SIZE_Y = 7;   //  board size on the y-axis
 
   /**
    * Board constructor
-   * Call the initialize method
+   * Call the initBoard method
    */
   public Board() {
-    this.SIZE_X = 8;
-    this.SIZE_Y = 7;
     initBoard();
   }
 
@@ -18,27 +16,29 @@ public class Board {
    * Initialize the board with SIZE_X and SIZE_Y
    */
   private void initBoard() {
+
+    // Initialize the board with no-color pawn
     for (int i=0;i<getSIZE_Y();i++) {
       for (int j=0;j<getSIZE_X();j++) {
-        board[i][j] = new Pawn(null,i,j,NONE,null,false);
+        this.board[i][j] = new Pawn(null,i,j,PawnColor.NONE,null,false);
       }
     }
 
-    i=0;
-    j=0;
-    for (i;i<2;i++) {
-      for (j;j<getSIZE_X();j++) {
-        board[i][j] = new Pawn() //TODO LES Pions NOIRS METHODE INIT TAB Pawn DE PLAYER ????
-      }
-    }
+    //Initialize the player's pawn TODO
+    /*for (int i=0;i<2;i+3) {
+      Pawn pw2 = new Pawn(2,i,0,PawnColor.WHITE,null,true);
+      Pawn pw1 = new Pawn(1,i,0,PawnColor.WHITE,pw2,false);
 
-    i=0;
-    j=0;
-    for (i;i<2;i++) {
-      for (j;j<(getSIZE_Y()-2);j++) {
-        board[i][j] = new Pawn() //TODO LES PawnS BLANCS
-      }
-    }
+      Pawn pw4 = new Pawn(4,i+1,0,PawnColor.WHITE,null,true);
+      Pawn pw3 = new Pawn(3,i+1,0,PawnColor.WHITE,pw4,false);
+
+      Pawn pb2 = new Pawn(2,i+1,6,PawnColor.BLACK,null,true);
+      Pawn pb1 = new Pawn(1,i+1,6,PawnColor.BLACK,pb2,false);
+
+      Pawn pb4 = new Pawn(4,i+1,6,PawnColor.BLACK,null,true);
+      Pawn pb3 = new Pawn(3,i+1,6,PawnColor.BLACK,pb4,false);
+    }*/
+
 
   }
   /**
@@ -82,27 +82,17 @@ public class Board {
    * @param  x (int) X-axis coordonate of the case to check
    * @param  y (int) Y-axis coordonate of the case to check
    * @param  color (PawnColor) Color of the pawn on the case
+   * @param  value (int) Value of the pawn you want to take.
    * @return (boolean) true if the case is free, false otherwise
    */
-  public boolean isFree(int x,int y,PawnColor color) {
-    boolean free;
-    if (board[x][y].getColor() == NULL) {
+  public boolean isFree(int x,int y,PawnColor color, int value) {
+    boolean free = false;
+    if (this.board[x][y].getColor() == PawnColor.NULL) {
       free = true;
-    } else{
-      System.out.println("La case est déja prise par un Pawn !\n");
+    } else if ((this.board[x][y].getColor() != color) && (this.board[x][y].getValue() == value+1)) {
+      free = true;
     }
-
-    if (board[x][y].getValue() < this.getValue()) {
-      System.out.println("La case contient un Pawn de valeur inférieure");
-      if (board[x][y].getColor() != this.getColor()) {
-        System.out.println("Et le Pawn est de l'équipe adverse !");
-        free =true;
-      } else{
-        System.out.println("Le Pawn est de la meme équipe !");
-        free = false;
-      }
-    }
-
+    return true;
   }
 
   /**
@@ -110,13 +100,13 @@ public class Board {
    * @return (String) The board display
    */
   public String toString() {
-    String ret = new String("Le plateau mesure" + this.getSIZE_X() + "x" + this.getSIZE_Y() + "\n");
-    return ret;
+    String ret = "";
+    for (int y = 0;y < this.SIZE_Y;y++){
+      ret = ret + "\n ";
+      for (int x = 0;x < this.SIZE_X;x++){
+          ret = ret + this.board[y][x].toString();
+      }
+    }
+    return ret + "\n";
   }
-  /**
-   * Clone the board to securize it
-   * @return (Board) the cloned Board
-   */
-  public Board clone() {
-    Board clone = this.getBoard();
 }
