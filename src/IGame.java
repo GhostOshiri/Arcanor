@@ -22,8 +22,9 @@ public interface IGame {
 
   /**
    * Stop and close the game
+   * @return (boolean) true if the game is end false otherwise
    */
-  public void endOfGame();
+  public boolean endOfGame();
 
   /**
    * Description of the game

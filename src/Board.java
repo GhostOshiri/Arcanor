@@ -1,3 +1,5 @@
+package arcanor;
+
 public class Board {
 
   private Pawn[][] board;     //  game board
@@ -10,37 +12,43 @@ public class Board {
    */
   public Board() {
     initBoard();
+    initTabPawn();
   }
 
   /**
    * Initialize the board with SIZE_X and SIZE_Y
    */
   private void initBoard() {
-
+    board = new Pawn[SIZE_Y][SIZE_X];
     // Initialize the board with no-color pawn
-    for (int i=0;i<getSIZE_Y();i++) {
-      for (int j=0;j<getSIZE_X();j++) {
-        this.board[i][j] = new Pawn(null,i,j,PawnColor.NONE,null,false);
+    for (int i=0;i<SIZE_Y;i++) {
+      for (int j=0;j<SIZE_X;j++) {
+        this.board[i][j] = new Pawn(-1,i,j,PawnColor.NONE,null,false);
       }
     }
+  }
 
-    //Initialize the player's pawn TODO
-    /*for (int i=0;i<2;i+3) {
+  /**
+   * Initializes the pawn of the player on the board
+   */
+  private void initTabPawn(){
+
+    for (int i=0;i<8;i= i+3) {
+      System.out.println("1");
       Pawn pw2 = new Pawn(2,i,0,PawnColor.WHITE,null,true);
       Pawn pw1 = new Pawn(1,i,0,PawnColor.WHITE,pw2,false);
-
+      System.out.println("2");
       Pawn pw4 = new Pawn(4,i+1,0,PawnColor.WHITE,null,true);
       Pawn pw3 = new Pawn(3,i+1,0,PawnColor.WHITE,pw4,false);
-
+      System.out.println("3");
       Pawn pb2 = new Pawn(2,i+1,6,PawnColor.BLACK,null,true);
       Pawn pb1 = new Pawn(1,i+1,6,PawnColor.BLACK,pb2,false);
-
+      System.out.println("4");
       Pawn pb4 = new Pawn(4,i+1,6,PawnColor.BLACK,null,true);
       Pawn pb3 = new Pawn(3,i+1,6,PawnColor.BLACK,pb4,false);
-    }*/
-
-
+    }
   }
+
   /**
    * Get the board
    * @return (char[][]) The board
@@ -55,9 +63,7 @@ public class Board {
    */
   public void setBoard(Pawn[][] board) {
     if (board != null) {
-      if ((board.getSIZE_X%2 ==0)&&(board.getSIZE_X%2 ==1)) {
-        this.board = board;
-      }
+      this.board = board;
     }
   }
 
@@ -87,7 +93,7 @@ public class Board {
    */
   public boolean isFree(int x,int y,PawnColor color, int value) {
     boolean free = false;
-    if (this.board[x][y].getColor() == PawnColor.NULL) {
+    if (this.board[x][y].getColor() == PawnColor.NONE) {
       free = true;
     } else if ((this.board[x][y].getColor() != color) && (this.board[x][y].getValue() == value+1)) {
       free = true;

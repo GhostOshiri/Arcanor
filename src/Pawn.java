@@ -21,8 +21,8 @@ public class Pawn {
      * @param hasEat (Pawn)
      * @param isEaten (boolean)
      */
-    public Pawn(int value, int posX, int posY,PawnColor color,Pawn hasEat,boolean isEaten) {
-      if ((value >= 1) && (value <=4) && (posX >= 0) && (posX <= 7) && (posY >= 0) && (posY <= 6) && (color != null)) {
+    public Pawn(int value, int posY, int posX,PawnColor color,Pawn hasEat,boolean isEaten) {
+      if ((posX >= 0) && (posX <= 7) && (posY >= 0) && (posY <= 6) && (color != null)) {
         this.value = value;
         this.posX = posX;
         this.posY = posY;
@@ -99,20 +99,26 @@ public class Pawn {
      * @return (int [][]) Matrix containing the position couples allowed to receive the pawn on.
      */
     public int[][] possiblePos(Board board) {
+      int[][] deplacement = null;
       if (board != null) {
-        int[][] deplacement = new int[8][2];
-        int xMove = -1;
-        int yMove = -1;
-        for (int i = -1;i <= 1;i++) {
-          for (int j = -1;j <= 1;j++) {
-            if ((j != 0) && (i != 0)) {
-              
+        deplacement = new int[8][2];
+        int i = 0;
+        for (int yMove = -1;yMove <= 1;yMove++) {
+          for (int xMove = -1;xMove <= 1;xMove++) {
+            if ((xMove != 0) && (yMove != 0)) {
+              if(board.isFree(posX + xMove,posY + yMove,this.color,this.value)) {
+                deplacement[i][0] = posX + xMove;
+                deplacement[i][1] = posY + yMove;
+              } else {
+                deplacement[i][0] = -1;
+                deplacement[i][1] = -1;
+              }
+              i++;
             }
           }
-
         }
-
       }
+      return deplacement;
     }
 
     /**
@@ -121,7 +127,18 @@ public class Pawn {
      * @param newPosX (int) new position of the pawn on the X axis
      * @param newPosY (int) new position of the pawn on the Y axis
      */
-    public void changePos(char[][] board, int newPosX, int newPosY) {}
+    public boolean changePos(Board board, int newPosX, int newPosY) {
+      boolean ret = false;
+      int[][] deplacement = this.possiblePos(board);
+      for (int i = 0;i < deplacement.length;i++) {
+        if((deplacement[i][0] == newPosX) && (deplacement[i][0] == newPosX)) {
+          this.posX = newPosX;
+          this.posY = newPosY;
+          ret = true;
+        }
+      }
+      return ret;
+    }
 
     /**
      * Get the value of the attribute isEaten.
@@ -135,23 +152,19 @@ public class Pawn {
      * Set the value of the attribute isEaten.
      * True if the pawn has to be eaten false otherwise
      */
-    public void setisEaten(boolean isEaten) {
-      if (isEaten != null) {
-        this.isEaten = isEaten;
-      } else{
-        System.out.println("Pawn-setisEaten()-Erreur de parametres");
-      }
+    public void setIsEaten(boolean isEaten) {
+      this.isEaten = isEaten;
     }
 
     /**
      * Set the value of the attribute hasEat.
      * The attribute is set if the pawn is containing another pawn.
      */
-    public void sethasEat(Pawn hasEatr) {
-      if (this.hasEat = null) {
-        if (this.getValue() > hasEatr.getValue()) {
-          this.hasEat = hasEatr;
-          System.out.println("Vous avez mangé le Pawn : " + hasEatr.getValue() +"\n");
+    public void sethasEat(Pawn hasEat) {
+      if (this.hasEat == null) {
+        if (this.getValue() > hasEat.getValue()) {
+          this.hasEat = hasEat;
+          System.out.println("Vous avez mangé le Pawn : " + hasEat.getValue() +"\n");
         } else{
           System.out.println("Vous ne pouvez manger le Pawn car il est plus gros que le votre !");
         }

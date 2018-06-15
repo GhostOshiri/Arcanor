@@ -7,33 +7,42 @@ public abstract class Player{
   protected String name;
   protected PawnColor team;
   protected int point;
+  protected Board grid;
 
   /**
    * Contructor of the Player class. Initializes all the attributes of the class
    * @param name (String) player's name
    * @param team (PawnColor) player's team color
-   * @param point (int) player's amount of point
+   * @param grid (Board) Board of the game
    */
-  public Player(String name, PawnColor team, int point){
-
+  public Player(String name, PawnColor team, Board grid){
+    if ((name != null) && (team != null) && (grid != null)) {
+      this.name = name;
+      this.team = team;
+      this.grid = grid;
+      this.point = 0;
+    } else {
+      System.out.println("Player - Constructor : error parameter");
+    }
   }
+
   /**
    * Used to have the name of the player
    * @return (String) player's name
    */
-  public String getNom(){
-    return this.nom;
+  public String getName(){
+    return this.name;
   }
 
   /**
    * Used to set the name of the player
-   * @param nom (String) new player's name
+   * @param name (String) new player's name
    */
-  public void setNom(String nom){
-    if (nom != null) {
-      this.nom = nom;
+  public void setName(String name){
+    if (name != null) {
+      this.name = name;
     } else{
-      System.out.println("Player - setNom - Parameter Error ");
+      System.out.println("Player - setName - Parameter Error ");
     }
   }
 
@@ -49,7 +58,7 @@ public abstract class Player{
    * Used to set the color of the player's team
    * @param team (PawnColor)
    */
-  public void setTeam(String team){
+  public void setTeam(PawnColor team){
     if (team !=null) {
       this.team = team;
     } else{
@@ -66,6 +75,8 @@ public abstract class Player{
     if (this.point >= 12) {
       check = true;
     }
+
+    return check;
   }
 
   /**
@@ -80,6 +91,12 @@ public abstract class Player{
     }
   }
 
+  public void setPoint(int point){
+    if ((point >= 0) && (point < 12)) {
+      this.point = point;
+    }
+  }
+
   /**
    * Give the amount of point of the player.
    * @return (int) amount of point
@@ -89,14 +106,7 @@ public abstract class Player{
   }
 
   /**
-   * Initializes the pawn of the player on the board
-   */
-  private void initTabPawn(){
-    
-  }
-
-  /**
    * Allows the player to play and move his pawn, add point or declare a winner
    */
-  public abstract void play();
+  public abstract boolean play();
 }

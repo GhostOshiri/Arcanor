@@ -7,26 +7,24 @@ public class IAPlayer extends Player{
 
   /**
    * Constructor of the IAPlayer class using the constructor herited from the player class
-   * @param (String) name of the player
-   * @param (String) team of the player
-   * @param (int) point of the player
+   * @param name (String) name of the player
+   * @param color (PawnColor) color of the player
+   * @param grid (Board) grid of the game
    */
-  public IAPlayer(String player, String color, int point){
-    super(name,team,point);
+  public IAPlayer(String name, PawnColor color, Board grid){
+    super(name,color,grid);
   }
 
   /**
    * Method used to play on the board
    */
-  public void play(){
-
+  public boolean play(){
+    return false;
   }
 
   /**
    * Clone the IAPlayer to securize it.
    * @return (IAPlayer) the cloned version of the IAPlayer
    */
-  public IAPlayer clone(){
-
-  }
+  //public IAPlayer clone(){}
 }
