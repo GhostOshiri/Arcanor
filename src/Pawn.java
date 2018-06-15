@@ -103,22 +103,11 @@ public class Pawn {
         int[][] deplacement = new int[8][2];
         int xMove = -1;
         int yMove = -1;
-        for (int i = 0;i < 8;i++) {
-          if ((xMove == 1) && (yMove == 1)) {
-            //fin
-          } else if ((xMove == 1) && (yMove != 1)) {
-            xMove = -1;
-            yMove = yMove++;
-          } else if ((xMove <= 1) && (yMove != 0)) {
-
-          } else if ((xMove <= 1) && (yMove == 0)) {
-            if (xMove == -1) {
-
-            } else {
-
+        for (int i = -1;i <= 1;i++) {
+          for (int j = -1;j <= 1;j++) {
+            if ((j != 0) && (i != 0)) {
+              
             }
-          } else {
-
           }
 
         }
