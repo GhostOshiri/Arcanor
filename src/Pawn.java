@@ -100,25 +100,23 @@ public class Pawn {
      */
     public int[][] possiblePos(Board board) {
       int[][] deplacement = null;
+
       if (board != null) {
         deplacement = new int[8][2];
         int i = 0;
 
-        System.out.println(posX + " " + posY);
+        System.out.println(this.posX + " " + this.posY);
 
         for (int yMove = -1;yMove <= 1;yMove++) {
           for (int xMove = -1;xMove <= 1;xMove++) {
             if (!((xMove == 0) && (yMove == 0))) {
-              System.out.println("-->");
-              if(board.isFree(posX + xMove,posY + yMove,this.color,this.value)) {
-                System.out.println(xMove + " " + yMove + " free");
-                deplacement[i][0] = posX + xMove;
-                deplacement[i][1] = posY + yMove;
+              if(board.isFree((this.posX + xMove),(this.posY + yMove),this.color,this.value)) {
+                deplacement[i][0] = this.posX + xMove;
+                deplacement[i][1] = this.posY + yMove;
               } else {
                 deplacement[i][0] = -1;
                 deplacement[i][1] = -1;
               }
-              System.out.println(deplacement[i][0] + "." + deplacement[i][1]);
               i++;
             }
           }
@@ -149,8 +147,8 @@ public class Pawn {
           this.getHasEat().changePos(board,newPosX,newPosY);
         }
         if (!this.isEaten) {
-          board.getBoard()[posX][posY] = new Pawn(-1,0,0,PawnColor.NONE,null,false);
-          board.getBoard()[newPosX][newPosY] = this;
+          board.getBoard()[posY][posX] = new Pawn(-1,0,0,PawnColor.NONE,null,false);
+          board.getBoard()[newPosY][newPosX] = this;
           this.posX = newPosX;
           this.posY = newPosY;
         }
@@ -180,17 +178,22 @@ public class Pawn {
      * The attribute is set if the pawn is containing another pawn.
      */
     public void setHasEat(Pawn hasEat) {
-      if (this.hasEat == null) {
-        if (this.getValue() > hasEat.getValue()) {
-          this.hasEat = hasEat;
-          System.out.println("Vous avez mangé le Pawn : " + hasEat.getValue() +"\n");
+      if (hasEat == null) {
+        this.hasEat = null;
+      } else {
+        if (this.hasEat == null) {
+          if (this.getValue()+1 == hasEat.getValue()) {
+            this.hasEat = hasEat;
+            System.out.println("Vous avez mangé le Pawn : " + hasEat.getValue() +"\n");
+          } else{
+            System.out.println("Vous ne pouvez manger le Pawn car il est plus gros que le votre !");
+          }
         } else{
-          System.out.println("Vous ne pouvez manger le Pawn car il est plus gros que le votre !");
+          System.out.println("Vous ne pouvez manger ce Pawn car le votre en contient déja un !");
         }
-      } else{
-        System.out.println("Vous ne pouvez manger ce Pawn car le votre en contient déja un !");
       }
     }
+
 
     /**
      * Get the value of the attribute isEaten.
@@ -203,9 +206,25 @@ public class Pawn {
     public String toString() {
       String ret = " . ";
       if (this.color == PawnColor.WHITE) {
-        ret = " W ";
+        if (this.value == 1) {
+          ret = " ▅ ";
+        } else if (this.value == 2){
+           ret = " ▄ ";
+        } else if (this.value == 3){
+           ret = " ▃ ";
+        } else if (this.value == 4){
+           ret = " ▂ ";
+        }
       } else if (this.color == PawnColor.BLACK){
-        ret = " B ";
+        if (this.value == 1) {
+          ret = " \033[34m▅\033[37m ";
+        } else if (this.value == 2){
+           ret = " \033[34m▄\033[37m ";
+        } else if (this.value == 3){
+           ret = " \033[34m▃\033[37m ";
+        } else if (this.value == 4){
+           ret = " \033[34m▂\033[37m ";
+        }
       }
       return ret;
     }
@@ -218,4 +237,52 @@ public class Pawn {
       Pawn ret = new Pawn(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.getHasEat(),this.getIsEaten());
       return ret;
     }
+
+    public boolean split(Board board, int newPosX, int newPosY){
+      boolean worked = false;
+
+      if (this.getHasEat() != null) {
+        int elderX = this.getPosX();
+        int elderY = this.getPosY();
+        Pawn stay = this.getHasEat();
+
+        this.setHasEat(null);
+        worked = this.changePos(board,newPosX,newPosY);
+        stay.setIsEaten(false);
+        board.getBoard()[elderY][elderX] = stay;
+        System.out.println(stay.getPosY() + " " + stay.getPosX() + " " + stay.toString());
+      } else {
+        worked = this.changePos(board,newPosX,newPosY);
+      }
+
+      return worked;
+    }
+
+    public boolean move(Board board, int newPosX, int newPosY) {
+      return (this.changePos(board,newPosX,newPosY));
+    }
+
+    public boolean eat(Board board, int newPosX, int newPosY){
+      boolean worked = false;
+      Pawn target = board.getBoard()[newPosY][newPosX];
+      if ((this.getHasEat() != null) && (this.allowedToEat(board,newPosX,newPosY) == true)) {
+        target.setIsEaten(false);
+        worked = this.split(board,newPosX,newPosY);
+        this.setHasEat(target);
+      } else {
+        worked = this.changePos(board,newPosX,newPosY);
+        this.setHasEat(target);
+      }
+
+      return worked;
+    }
+
+    private boolean allowedToEat(Board board,int posX,int posY){
+      boolean ret = false;
+      if ((board.getBoard()[posY][posX].getColor() != this.color) && (board.getBoard()[posY][posX].getValue() == this.value + 1)) {
+        ret = true;
+      }
+      return ret;
+    }
+
 }

@@ -35,41 +35,33 @@ public abstract class Player{
   private void initTabPawn(){
     tabPawn = new Pawn[12];
     if (team == PawnColor.WHITE) {
-      System.out.println("WHITE");
       tabPawn[0] = new Pawn(2,0,0,PawnColor.WHITE,null,true);
       tabPawn[1] = new Pawn(1,0,0,PawnColor.WHITE,tabPawn[0],false);
-      System.out.println("--");
       tabPawn[2] = new Pawn(4,0,1,PawnColor.WHITE,null,true);
       tabPawn[3] = new Pawn(3,0,1,PawnColor.WHITE,tabPawn[2],false);
 
       tabPawn[4] = new Pawn(2,0,3,PawnColor.WHITE,null,true);
       tabPawn[5] = new Pawn(1,0,3,PawnColor.WHITE,tabPawn[4],false);
-      System.out.println("--");
       tabPawn[6] = new Pawn(4,0,4,PawnColor.WHITE,null,true);
       tabPawn[7] = new Pawn(3,0,4,PawnColor.WHITE,tabPawn[6],false);
 
       tabPawn[8] = new Pawn(2,0,6,PawnColor.WHITE,null,true);
       tabPawn[9] = new Pawn(1,0,6,PawnColor.WHITE,tabPawn[8],false);
-      System.out.println("--");
       tabPawn[10] = new Pawn(4,0,7,PawnColor.WHITE,null,true);
       tabPawn[11] = new Pawn(3,0,7,PawnColor.WHITE,tabPawn[10],false);
     } else if (team == PawnColor.BLACK){
-      System.out.println("BLACK");
       tabPawn[0] = new Pawn(2,6,0,PawnColor.BLACK,null,true);
       tabPawn[1] = new Pawn(1,6,0,PawnColor.BLACK,tabPawn[0],false);
-      System.out.println("--");
       tabPawn[2] = new Pawn(4,6,1,PawnColor.BLACK,null,true);
       tabPawn[3] = new Pawn(3,6,1,PawnColor.BLACK,tabPawn[2],false);
 
       tabPawn[4] = new Pawn(2,6,3,PawnColor.BLACK,null,true);
       tabPawn[5] = new Pawn(1,6,3,PawnColor.BLACK,tabPawn[4],false);
-      System.out.println("--");
       tabPawn[6] = new Pawn(4,6,4,PawnColor.BLACK,null,true);
       tabPawn[7] = new Pawn(3,6,4,PawnColor.BLACK,tabPawn[6],false);
 
       tabPawn[8] = new Pawn(2,6,6,PawnColor.BLACK,null,true);
       tabPawn[9] = new Pawn(1,6,6,PawnColor.BLACK,tabPawn[8],false);
-      System.out.println("--");
       tabPawn[10] = new Pawn(4,6,7,PawnColor.BLACK,null,true);
       tabPawn[11] = new Pawn(3,6,7,PawnColor.BLACK,tabPawn[10],false);
   }

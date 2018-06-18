@@ -72,9 +72,9 @@ public class Board {
   public boolean isFree(int x,int y,PawnColor color, int value) {
     boolean free = false;
     if ((x >= 0) && (x < SIZE_X) && (y >= 0) && (y < SIZE_Y)) {
-      if (this.board[x][y].getColor() == PawnColor.NONE) {
+      if (this.board[y][x].getColor() == PawnColor.NONE) {
         free = true;
-      } else if ((this.board[x][y].getColor() != color) && (this.board[x][y].getValue() == value+1)) {
+      } else if ((this.board[y][x].getColor() != color) && (this.board[y][x].getValue() == value+1)) {
         free = true;
       }
     }
@@ -93,6 +93,10 @@ public class Board {
       for (int x = 0;x < this.SIZE_X;x++){
           ret = ret + this.board[y][x].toString();
       }
+    }
+    ret = ret + "\n";
+    for (int i = 0;i < SIZE_X;i++) {
+      ret = ret + "  " + i + "";
     }
     return ret + "\n";
   }

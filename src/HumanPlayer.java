@@ -38,10 +38,16 @@ public class HumanPlayer extends Player{
       }
       check = false;
       while(!check){
-        System.out.println("In which case do you want to move it ? (x y)"); // idem
+        System.out.println("In which case do you want to move/eat/split it ? (choice x y)"); // idem
         move = sc.nextLine();
         String[] choice = move.split(" ");
-        check = pion.changePos(this.grid,Integer.parseInt(choice[0]),Integer.parseInt(choice[1]));
+        if (choice[0].equals("move")) {
+          check = pion.move(this.grid,Integer.parseInt(choice[1]),Integer.parseInt(choice[2]));
+        } else if(choice[0].equals("eat")) {
+          check = pion.eat(this.grid,Integer.parseInt(choice[1]),Integer.parseInt(choice[2]));
+        } else if (choice[0].equals("split")) {
+          check = pion.split(this.grid,Integer.parseInt(choice[1]),Integer.parseInt(choice[2]));
+        }
       }
       return check;
     }
@@ -55,21 +61,25 @@ public class HumanPlayer extends Player{
       int y;
       Pawn selected = null;
       String[] choice = response.split(" ");
-      x = Integer.parseInt(choice[0]);
-      y = Integer.parseInt(choice[1]);
+      try {
+        x = Integer.parseInt(choice[0]);
+        y = Integer.parseInt(choice[1]);
 
-      for (Pawn pw : getTabPawn()) {
-        if (!pw.getIsEaten()) {
-          if ((pw.getPosX() == x) && (pw.getPosY() == y)) {
-            selected = pw;
-          } else{
-            System.out.println("Wrong pawn x or y  ! ");
+        for (Pawn pw : getTabPawn()) {
+          if (!pw.getIsEaten()) {
+            if ((pw.getPosX() == x) && (pw.getPosY() == y)) {
+              selected = pw;
+            }
           }
         }
+      } catch (NumberFormatException e) {
+        System.out.println("Ce n'est pas un entier");
       }
 
       return selected;
   }
+
+
   /*
    1 2 3 4 5 6 7 8
 1  X-X-0-X-X-0-X-X
