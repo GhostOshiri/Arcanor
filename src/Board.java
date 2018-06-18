@@ -89,7 +89,7 @@ public class Board {
   public String toString() {
     String ret = "";
     for (int y = 0;y < this.SIZE_Y;y++){
-      ret = ret + "\n ";
+      ret = ret + "\n " + y + " ";
       for (int x = 0;x < this.SIZE_X;x++){
           ret = ret + this.board[y][x].toString();
       }
