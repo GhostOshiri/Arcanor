@@ -24,6 +24,7 @@ public class Game implements IGame{
     this.aBoard = new Board();
     this.mod = mod;
     this.createPlayer(nameP1,color1,nameP2,color2,mod);
+    
   }
 
   /**

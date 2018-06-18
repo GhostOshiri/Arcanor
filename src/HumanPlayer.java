@@ -30,14 +30,18 @@ public class HumanPlayer extends Player{
       Pawn pion;
       Scanner sc = new Scanner(System.in);
 
-      System.out.println("Which pawn do you want to select ? (x y)"); // line column
-      pawn = sc.nextLine();
-      pion = choiceOfPawn(pawn);
-      System.out.println("In which case do you want to move it ? (x y)"); // idem
-      move = sc.nextLine();
-      String[] choice = move.split(" ");
-      if (pion.changePos(super.grid,Integer.parseInt(choice[0]),Integer.parseInt(choice[1]))) {
-        check = true;
+      pion = null;
+      while(pion == null) {
+        System.out.println("Which pawn do you want to select ? (x y)"); // line column
+        pawn = sc.nextLine();
+        pion = choiceOfPawn(pawn);
+      }
+      check = false;
+      while(!check){
+        System.out.println("In which case do you want to move it ? (x y)"); // idem
+        move = sc.nextLine();
+        String[] choice = move.split(" ");
+        check = pion.changePos(this.grid,Integer.parseInt(choice[0]),Integer.parseInt(choice[1]));
       }
       return check;
     }
@@ -54,13 +58,16 @@ public class HumanPlayer extends Player{
       x = Integer.parseInt(choice[0]);
       y = Integer.parseInt(choice[1]);
 
-      if ((x >=0) && (x<8)) {
-        if ((y >=0) && (y<7)) {
-          selected = this.grid.getBoard()[y][x];
-        } else{
-          System.out.println("Wrong y value s! - HumanPlayer - choiceOfPawn ");
+      for (Pawn pw : getTabPawn()) {
+        if (!pw.getIsEaten()) {
+          if ((pw.getPosX() == x) && (pw.getPosY() == y)) {
+            selected = pw;
+          } else{
+            System.out.println("Wrong pawn x or y  ! ");
+          }
         }
-      } System.out.println("Wrong x value ! - HumanPlayer - choiceOfPawn");
+      }
+
       return selected;
   }
   /*

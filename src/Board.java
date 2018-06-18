@@ -12,7 +12,6 @@ public class Board {
    */
   public Board() {
     initBoard();
-    initTabPawn();
   }
 
   /**
@@ -25,27 +24,6 @@ public class Board {
       for (int j=0;j<SIZE_X;j++) {
         this.board[i][j] = new Pawn(-1,i,j,PawnColor.NONE,null,false);
       }
-    }
-  }
-
-  /**
-   * Initializes the pawn of the player on the board
-   */
-  private void initTabPawn(){
-
-    for (int i=0;i<8;i= i+3) {
-      System.out.println("1");
-      Pawn pw2 = new Pawn(2,i,0,PawnColor.WHITE,null,true);
-      Pawn pw1 = new Pawn(1,i,0,PawnColor.WHITE,pw2,false);
-      System.out.println("2");
-      Pawn pw4 = new Pawn(4,i+1,0,PawnColor.WHITE,null,true);
-      Pawn pw3 = new Pawn(3,i+1,0,PawnColor.WHITE,pw4,false);
-      System.out.println("3");
-      Pawn pb2 = new Pawn(2,i+1,6,PawnColor.BLACK,null,true);
-      Pawn pb1 = new Pawn(1,i+1,6,PawnColor.BLACK,pb2,false);
-      System.out.println("4");
-      Pawn pb4 = new Pawn(4,i+1,6,PawnColor.BLACK,null,true);
-      Pawn pb3 = new Pawn(3,i+1,6,PawnColor.BLACK,pb4,false);
     }
   }
 
@@ -93,12 +71,15 @@ public class Board {
    */
   public boolean isFree(int x,int y,PawnColor color, int value) {
     boolean free = false;
-    if (this.board[x][y].getColor() == PawnColor.NONE) {
-      free = true;
-    } else if ((this.board[x][y].getColor() != color) && (this.board[x][y].getValue() == value+1)) {
-      free = true;
+    if ((x >= 0) && (x < SIZE_X) && (y >= 0) && (y < SIZE_Y)) {
+      if (this.board[x][y].getColor() == PawnColor.NONE) {
+        free = true;
+      } else if ((this.board[x][y].getColor() != color) && (this.board[x][y].getValue() == value+1)) {
+        free = true;
+      }
     }
-    return true;
+
+    return free;
   }
 
   /**

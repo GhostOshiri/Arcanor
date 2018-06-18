@@ -103,16 +103,22 @@ public class Pawn {
       if (board != null) {
         deplacement = new int[8][2];
         int i = 0;
+
+        System.out.println(posX + " " + posY);
+
         for (int yMove = -1;yMove <= 1;yMove++) {
           for (int xMove = -1;xMove <= 1;xMove++) {
-            if ((xMove != 0) && (yMove != 0)) {
+            if (!((xMove == 0) && (yMove == 0))) {
+              System.out.println("-->");
               if(board.isFree(posX + xMove,posY + yMove,this.color,this.value)) {
+                System.out.println(xMove + " " + yMove + " free");
                 deplacement[i][0] = posX + xMove;
                 deplacement[i][1] = posY + yMove;
               } else {
                 deplacement[i][0] = -1;
                 deplacement[i][1] = -1;
               }
+              System.out.println(deplacement[i][0] + "." + deplacement[i][1]);
               i++;
             }
           }
@@ -131,12 +137,25 @@ public class Pawn {
       boolean ret = false;
       int[][] deplacement = this.possiblePos(board);
       for (int i = 0;i < deplacement.length;i++) {
-        if((deplacement[i][0] == newPosX) && (deplacement[i][0] == newPosX)) {
-          this.posX = newPosX;
-          this.posY = newPosY;
+        if((deplacement[i][0] == newPosX) && (deplacement[i][1] == newPosY)) {
+          System.out.println(deplacement[i][0] + " " + deplacement[i][1]);
+          System.out.println("oui");
           ret = true;
         }
       }
+
+      if (ret == true) {
+        if (this.getHasEat() != null) {
+          this.getHasEat().changePos(board,newPosX,newPosY);
+        }
+        if (!this.isEaten) {
+          board.getBoard()[posX][posY] = new Pawn(-1,0,0,PawnColor.NONE,null,false);
+          board.getBoard()[newPosX][newPosY] = this;
+          this.posX = newPosX;
+          this.posY = newPosY;
+        }
+      }
+
       return ret;
     }
 
@@ -144,7 +163,7 @@ public class Pawn {
      * Get the value of the attribute isEaten.
      * True if the pawn is eaten false otherwise
      */
-    public boolean getisEaten() {
+    public boolean getIsEaten() {
       return this.isEaten;
     }
 
@@ -160,7 +179,7 @@ public class Pawn {
      * Set the value of the attribute hasEat.
      * The attribute is set if the pawn is containing another pawn.
      */
-    public void sethasEat(Pawn hasEat) {
+    public void setHasEat(Pawn hasEat) {
       if (this.hasEat == null) {
         if (this.getValue() > hasEat.getValue()) {
           this.hasEat = hasEat;
@@ -177,7 +196,7 @@ public class Pawn {
      * Get the value of the attribute isEaten.
      * @return (Pawn) The attribute is not null if the pawn is containing another pawn.
      */
-    public Pawn gethasEat() {
+    public Pawn getHasEat() {
       return this.hasEat;
     }
 
@@ -196,7 +215,7 @@ public class Pawn {
      * @return (Pawn) the cloned Pawn
      */
     public Pawn clone() {
-      Pawn ret = new Pawn(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.gethasEat(),this.getisEaten());
+      Pawn ret = new Pawn(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.getHasEat(),this.getIsEaten());
       return ret;
     }
 }
