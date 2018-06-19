@@ -136,8 +136,6 @@ public class Pawn {
       int[][] deplacement = this.possiblePos(board);
       for (int i = 0;i < deplacement.length;i++) {
         if((deplacement[i][0] == newPosX) && (deplacement[i][1] == newPosY)) {
-          System.out.println(deplacement[i][0] + " " + deplacement[i][1]);
-          System.out.println("oui");
           ret = true;
         }
       }
@@ -149,6 +147,9 @@ public class Pawn {
         if (!this.isEaten) {
           board.getBoard()[posY][posX] = new Pawn(-1,0,0,PawnColor.NONE,null,false);
           board.getBoard()[newPosY][newPosX] = this;
+          this.posX = newPosX;
+          this.posY = newPosY;
+        } else {
           this.posX = newPosX;
           this.posY = newPosY;
         }
@@ -250,7 +251,6 @@ public class Pawn {
         worked = this.changePos(board,newPosX,newPosY);
         stay.setIsEaten(false);
         board.getBoard()[elderY][elderX] = stay;
-        System.out.println(stay.getPosY() + " " + stay.getPosX() + " " + stay.toString());
       } else {
         worked = this.changePos(board,newPosX,newPosY);
       }
@@ -266,7 +266,7 @@ public class Pawn {
       boolean worked = false;
       Pawn target = board.getBoard()[newPosY][newPosX];
       if ((this.getHasEat() != null) && (this.allowedToEat(board,newPosX,newPosY) == true)) {
-        target.setIsEaten(false);
+        target.setIsEaten(true);
         worked = this.split(board,newPosX,newPosY);
         this.setHasEat(target);
       } else {

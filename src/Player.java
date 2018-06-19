@@ -64,7 +64,7 @@ public abstract class Player{
       tabPawn[9] = new Pawn(1,6,6,PawnColor.BLACK,tabPawn[8],false);
       tabPawn[10] = new Pawn(4,6,7,PawnColor.BLACK,null,true);
       tabPawn[11] = new Pawn(3,6,7,PawnColor.BLACK,tabPawn[10],false);
-  }
+    }
     for (Pawn pw : tabPawn) {
       if (!pw.getIsEaten()) {
         this.grid.getBoard()[pw.getPosY()][pw.getPosX()] = pw;

@@ -24,7 +24,7 @@ public class Game implements IGame{
     this.aBoard = new Board();
     this.mod = mod;
     this.createPlayer(nameP1,color1,nameP2,color2,mod);
-    
+
   }
 
   /**
@@ -52,7 +52,24 @@ public class Game implements IGame{
    * Menu containing option start quit and other informations
    */
   public void startMenu(){
-    System.out.println("Start");                                                //Provisoire
+    System.out.println(" ╔═════════════════════════════════════════════════════╗"
+											+" ║ \033[31m───────────────────────────────────────────────────\033[0m ║"
+		                  +" ║  \033[33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0m  ║"
+		                  +" ║                                                     ║\n ║    888   8888    8888   888   8   8   888   8888    ║"
+  		                +" ║   8   8  8   8  8      8   8  88  8  8   8  8   8   ║"
+		                  +" ║   88888  8888   8      88888  8 8 8  8   8  8888    ║"
+		                  +" ║   8   8  8 8    8      8   8  8  88  8   8  8 8     ║"
+		                  +" ║   8   8  8  8    8888  8   8  8   8   888   8  8    ║"
+		                  +" ║                                                     ║\n ║  \033[33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0m  ║"
+		                  +" ║ \033[31m───────────────────────────────────────────────────\033[0m ║"
+		                  +" ║                                                     ║\n ║  \033[36m>>>\033[0m Play                                           ║"
+		                  +" ║  Player vs Player (\033[33m\033[33m1\033[0m)      Player vs IA             ║"
+		                  +" ║                            Easy      (\033[33m\033[33m2\033[0m)            ║"
+		                  +" ║                            Medium    (\033[33m3\033[0m)            ║"
+		                  +" ║                            Hard      (\033[33m4\033[0m)            ║"
+		                  +" ║                                                     ║\n ║  \033[36m>>>\033[0m Option  (\033[33m\033[33m5\033[0m)                                    ║"
+		                  +" ║  \033[36m>>>\033[0m Exit    (\033[33m\033[33m6\033[0m)                                    ║"
+		                  +" ╚═════════════════════════════════════════════════════╝");
   }
 
   /**
@@ -81,18 +98,37 @@ public class Game implements IGame{
   /**
    * Save the game.
    */
-  public void save(){}
+  public void save(){
+    " + fileName + "thisObjectOutputStream
+  }
 
   /**
    * load the game.
    */
-  public void load(){}
+  public void load(){
+    try {
+      FileInputStream fis = new FileInputStream("./save/" + fileName + ".ser");
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      this = (Game)ois.readObject();
+      ois.close();
+      fis.close();
+    }catch (FileNotFoundException f){
+      f.printStackTrace();
+    }
+  }
 
   /**
    * start the game
    */
   public void start() {
-    this.current = player1;
+    this.current = player2;
+    this.startMenu();
+    int[] answer = this.saisie();>= && (answer[0] <= 4) else if (answer[0] == 5) {
+      System.out.println("option");
+    } else if (answer[0] == 6) {
+      System.out.println("exit");
+    }
+s
     this.description();
     System.out.println(aBoard.toString());
     while (!this.endOfGame()) {
@@ -144,6 +180,18 @@ public class Game implements IGame{
     }
   }
 
-
+  private int saisie(){
+    try{
+      Scanner sc = new Scanner(System.in);
+      String str = sc.nextLine();
+      String[] strTab = str.split();
+      int[] ans = new int[strTab.length];
+      for (int i = O;i< strTab.length;i++) {
+        ans[i] = Interger.ParseInt(strTab[i]);
+      }
+    } catch (NumberFormatException e){
+      System.out.println("Invalid answer");
+    }
+  }
 
 }
