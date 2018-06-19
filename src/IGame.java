@@ -8,23 +8,17 @@ public interface IGame {
   /**
    * Save the game.
    */
-  public void save();
+  public void save(String fileName);
 
   /**
    * Load the game.
    */
-  public void load();
+  public void load(String fileName);
 
   /**
    * Start the game
    */
   public void start();
-
-  /**
-   * Stop and close the game
-   * @return (boolean) true if the game is end false otherwise
-   */
-  public boolean endOfGame();
 
   /**
    * Description of the game

@@ -27,7 +27,7 @@ public class Board {
     // Initialize the board with no-color pawn
     for (int i=0;i<SIZE_Y;i++) {
       for (int j=0;j<SIZE_X;j++) {
-        this.board[i][j] = new Pawn(-1,i,j,PawnColor.NONE,null,false);
+        this.board[i][j] = new Pawn(i,j);
       }
     }
   }
@@ -47,6 +47,8 @@ public class Board {
   public void setBoard(Pawn[][] board) {
     if (board != null) {
       this.board = board;
+    } else {
+      System.out.println("Board - setBoard : error parameter");
     }
   }
 

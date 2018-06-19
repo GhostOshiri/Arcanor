@@ -65,6 +65,7 @@ public abstract class Player{
       tabPawn[10] = new Pawn(4,6,7,PawnColor.BLACK,null,true);
       tabPawn[11] = new Pawn(3,6,7,PawnColor.BLACK,tabPawn[10],false);
     }
+
     for (Pawn pw : tabPawn) {
       if (!pw.getIsEaten()) {
         this.grid.getBoard()[pw.getPosY()][pw.getPosX()] = pw;
@@ -74,7 +75,7 @@ public abstract class Player{
   }
 
   /**
-   * Used to have the name of the player
+   * Get the name of the player
    * @return (String) player's name
    */
   public String getName(){
@@ -82,7 +83,7 @@ public abstract class Player{
   }
 
   /**
-   * Used to set the name of the player
+   * Set the name of the player
    * @param name (String) new player's name
    */
   public void setName(String name){
@@ -94,7 +95,7 @@ public abstract class Player{
   }
 
   /**
-   * Used to have the color of the player's team color
+   * Get the color of the player's team color
    * @return (PawnColor) player's team color
    */
   public PawnColor getTeam(){
@@ -102,7 +103,7 @@ public abstract class Player{
   }
 
   /**
-   * Used to set the color of the player's team
+   * Set the color of the player's team
    * @param team (PawnColor)
    */
   public void setTeam(PawnColor team){
@@ -138,6 +139,10 @@ public abstract class Player{
     }
   }
 
+  /**
+   * Set the amount of point given to the player
+   * @param (int) point
+   */
   public void setPoint(int point){
     if ((point >= 0) && (point < 12)) {
       this.point = point;
@@ -152,6 +157,10 @@ public abstract class Player{
     return this.point;
   }
 
+  /**
+   * Get the table containing all the pawn of a player
+   * @return Pawn[] table of pawn
+   */
   public Pawn[] getTabPawn() {
     return this.tabPawn;
   }

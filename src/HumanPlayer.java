@@ -5,11 +5,10 @@ import java.util.Scanner;
  * HumanPlayer Class
  */
 public class HumanPlayer extends Player{
-    private Scanner scan;
-
+  
     /**
      * HumanPlayer Constructor
-     * Initialise the Scanner and use super to initialize the name, team and point
+     * Use super to initialize the name, team and point of the human player
      * @param name (String) HumanPlayer's name
      * @param color (PawnColor) HumanPlayer's team color
      * @param grid (Board) Board of the game
@@ -19,7 +18,7 @@ public class HumanPlayer extends Player{
     }
 
     /**
-     * Method to play the game. Using choiceOfPawn too
+     * Method to play the game. Using choiceOfPawn()
      */
     public boolean play(){
       boolean check = false;
@@ -78,22 +77,4 @@ public class HumanPlayer extends Player{
 
       return selected;
   }
-
-
-  /*
-   1 2 3 4 5 6 7 8
-1  X-X-0-X-X-0-X-X
-2  0-0-0-0-0-0-0-0
-3  0-0-0-0-0-0-0-0
-4  0-0-0-0-0-0-0-0
-5  0-0-0-0-0-0-0-0
-6  0-0-0-0-0-0-0-0
-7  X-X-0-X-X-0-X-X
-  */
-
-    /**
-     * Clone the HumanPlayer to securize it
-     * @return (HumanPlayer) the cloned Player
-     */
-    //public HumanPlayer clone(){}
 }

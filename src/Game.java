@@ -1,6 +1,6 @@
 package arcanor;
 
-public class Game implements IGame{
+public class Game {
 
   //Definition des attributs
 
@@ -49,44 +49,6 @@ public class Game implements IGame{
   }
 
   /**
-   * Menu containing option start quit and other informations
-   */
-  public void startMenu(){
-    System.out.println(" ╔═════════════════════════════════════════════════════╗"
-											+" ║ \033[31m───────────────────────────────────────────────────\033[0m ║"
-		                  +" ║  \033[33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0m  ║"
-		                  +" ║                                                     ║\n ║    888   8888    8888   888   8   8   888   8888    ║"
-  		                +" ║   8   8  8   8  8      8   8  88  8  8   8  8   8   ║"
-		                  +" ║   88888  8888   8      88888  8 8 8  8   8  8888    ║"
-		                  +" ║   8   8  8 8    8      8   8  8  88  8   8  8 8     ║"
-		                  +" ║   8   8  8  8    8888  8   8  8   8   888   8  8    ║"
-		                  +" ║                                                     ║\n ║  \033[33m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0m  ║"
-		                  +" ║ \033[31m───────────────────────────────────────────────────\033[0m ║"
-		                  +" ║                                                     ║\n ║  \033[36m>>>\033[0m Play                                           ║"
-		                  +" ║  Player vs Player (\033[33m\033[33m1\033[0m)      Player vs IA             ║"
-		                  +" ║                            Easy      (\033[33m\033[33m2\033[0m)            ║"
-		                  +" ║                            Medium    (\033[33m3\033[0m)            ║"
-		                  +" ║                            Hard      (\033[33m4\033[0m)            ║"
-		                  +" ║                                                     ║\n ║  \033[36m>>>\033[0m Option  (\033[33m\033[33m5\033[0m)                                    ║"
-		                  +" ║  \033[36m>>>\033[0m Exit    (\033[33m\033[33m6\033[0m)                                    ║"
-		                  +" ╚═════════════════════════════════════════════════════╝");
-  }
-
-  /**
-   * Start a new game with a new player1, new player2 and new Board
-   */
-  public void newGame(){
-    System.out.println("new Game");                                              //provisoire
-  }
-
-  /**
-   * Save differents information of the game like a scoreboard
-   */
-  public void scoreMenu(){
-    System.out.println("score");                                                //provisoire
-  }
-
-  /**
    * Allow the user to quit the game
    */
   public void quit(){
@@ -95,41 +57,13 @@ public class Game implements IGame{
 
   //Implementation of the method herited by the interface
 
-  /**
-   * Save the game.
-   */
-  public void save(){
-    " + fileName + "thisObjectOutputStream
-  }
 
-  /**
-   * load the game.
-   */
-  public void load(){
-    try {
-      FileInputStream fis = new FileInputStream("./save/" + fileName + ".ser");
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      this = (Game)ois.readObject();
-      ois.close();
-      fis.close();
-    }catch (FileNotFoundException f){
-      f.printStackTrace();
-    }
-  }
 
   /**
    * start the game
    */
-  public void start() {
+  public void startGame() {
     this.current = player2;
-    this.startMenu();
-    int[] answer = this.saisie();>= && (answer[0] <= 4) else if (answer[0] == 5) {
-      System.out.println("option");
-    } else if (answer[0] == 6) {
-      System.out.println("exit");
-    }
-s
-    this.description();
     System.out.println(aBoard.toString());
     while (!this.endOfGame()) {
       this.changeCurrent();
@@ -151,25 +85,6 @@ s
   }
 
   /**
-   * End the game
-   * @return (boolean) true if the game is end false otherwise
-   */
-  public boolean endOfGame() {
-    boolean end = false;
-    if ((player1.checkWin()) || (player2.checkWin())) {
-      end = true;
-    }
-    return end;
-  }
-
-  /**
-   * Description of the game
-   */
-  public void description(){
-    System.out.println("description");                                          //provisoire
-  }
-
-  /**
    * Change the current playing player.
    */
   private void changeCurrent(){
@@ -180,18 +95,23 @@ s
     }
   }
 
-  private int saisie(){
-    try{
-      Scanner sc = new Scanner(System.in);
-      String str = sc.nextLine();
-      String[] strTab = str.split();
-      int[] ans = new int[strTab.length];
-      for (int i = O;i< strTab.length;i++) {
-        ans[i] = Interger.ParseInt(strTab[i]);
-      }
-    } catch (NumberFormatException e){
-      System.out.println("Invalid answer");
-    }
+  public Player getPlayer1() {
+    return this.player1;
   }
 
+  public Player getPlayer2() {
+    return this.player2;
+  }
+
+  /**
+   * End the game
+   * @return (boolean) true if the game is end false otherwise
+   */
+  public boolean endOfGame() {
+    boolean end = false;
+    if ((player1.checkWin()) || (player2.checkWin())) {
+      end = true;
+    }
+    return end;
+  }
 }

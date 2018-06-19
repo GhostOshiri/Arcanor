@@ -1,13 +1,12 @@
 package view;
 
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Color;
 import arcanor.*;
 
 
 public class GridTableFrame extends SimpleFrame {
-  private final int rowHeight = 55;  //pixel
+  private final int rowHeight = 60;  //pixel
 
   public GridTableFrame(Pawn[][] grid) {
     // set the grid size
@@ -20,8 +19,7 @@ public class GridTableFrame extends SimpleFrame {
     tab.setGridColor(Color.GRAY);
     tab.setRowHeight(rowHeight);
 
-    JScrollPane SP = new JScrollPane(tab);
-    this.getContentPane().add(SP);
+    this.getContentPane().add(tab);
 
   }
 
