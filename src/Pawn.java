@@ -34,6 +34,20 @@ public class Pawn {
       }
     }
 
+    //Réalisation d'un Pawn null
+    public Pawn(int posY,int posX) {
+      if ((posX >= 0) && (posX <= 7) && (posY >= 0) && (posY <= 6)) {
+        this.value = 0;
+        this.posX = posX;
+        this.posY = posY;
+        this.color = PawnColor.NONE;
+        this.hasEat = null;
+        this.isEaten = false;
+      } else {
+        System.out.println("Pawn - Constructor : error parameter");
+      }
+    }
+
     /**
      * Get the color of the pawn
      * @return (PawnColor) color
@@ -136,8 +150,6 @@ public class Pawn {
       int[][] deplacement = this.possiblePos(board);
       for (int i = 0;i < deplacement.length;i++) {
         if((deplacement[i][0] == newPosX) && (deplacement[i][1] == newPosY)) {
-          System.out.println(deplacement[i][0] + " " + deplacement[i][1]);
-          System.out.println("oui");
           ret = true;
         }
       }
@@ -147,8 +159,11 @@ public class Pawn {
           this.getHasEat().changePos(board,newPosX,newPosY);
         }
         if (!this.isEaten) {
-          board.getBoard()[posY][posX] = new Pawn(-1,0,0,PawnColor.NONE,null,false);
+          board.getBoard()[posY][posX] = new Pawn(posY,posX);
           board.getBoard()[newPosY][newPosX] = this;
+          this.posX = newPosX;
+          this.posY = newPosY;
+        } else {
           this.posX = newPosX;
           this.posY = newPosY;
         }
@@ -229,15 +244,6 @@ public class Pawn {
       return ret;
     }
 
-    /**
-     * Clone the Pawn to securize it
-     * @return (Pawn) the cloned Pawn
-     */
-    public Pawn clone() {
-      Pawn ret = new Pawn(this.getValue(),this.getPosX(),this.getPosY(),this.getColor(),this.getHasEat(),this.getIsEaten());
-      return ret;
-    }
-
     public boolean split(Board board, int newPosX, int newPosY){
       boolean worked = false;
 
@@ -250,7 +256,6 @@ public class Pawn {
         worked = this.changePos(board,newPosX,newPosY);
         stay.setIsEaten(false);
         board.getBoard()[elderY][elderX] = stay;
-        System.out.println(stay.getPosY() + " " + stay.getPosX() + " " + stay.toString());
       } else {
         worked = this.changePos(board,newPosX,newPosY);
       }
@@ -266,7 +271,7 @@ public class Pawn {
       boolean worked = false;
       Pawn target = board.getBoard()[newPosY][newPosX];
       if ((this.getHasEat() != null) && (this.allowedToEat(board,newPosX,newPosY) == true)) {
-        target.setIsEaten(false);
+        target.setIsEaten(true);
         worked = this.split(board,newPosX,newPosY);
         this.setHasEat(target);
       } else {

@@ -1,10 +1,12 @@
 package arcanor;
+import view.GridTableFrame;
 
 public class Board {
 
   private Pawn[][] board;     //  game board
   private final int SIZE_X = 8;   //  board size on the x-axis
   private final int SIZE_Y = 7;   //  board size on the y-axis
+  private GridTableFrame otframe;
 
   /**
    * Board constructor
@@ -12,6 +14,9 @@ public class Board {
    */
   public Board() {
     initBoard();
+    //create and show the graphical grid
+    otframe = new GridTableFrame(this.getBoard());
+    otframe.showIt();
   }
 
   /**
@@ -22,7 +27,7 @@ public class Board {
     // Initialize the board with no-color pawn
     for (int i=0;i<SIZE_Y;i++) {
       for (int j=0;j<SIZE_X;j++) {
-        this.board[i][j] = new Pawn(-1,i,j,PawnColor.NONE,null,false);
+        this.board[i][j] = new Pawn(i,j);
       }
     }
   }
@@ -42,6 +47,8 @@ public class Board {
   public void setBoard(Pawn[][] board) {
     if (board != null) {
       this.board = board;
+    } else {
+      System.out.println("Board - setBoard : error parameter");
     }
   }
 
@@ -87,6 +94,7 @@ public class Board {
    * @return (String) The board display
    */
   public String toString() {
+    otframe.actualized();
     String ret = "";
     for (int y = 0;y < this.SIZE_Y;y++){
       ret = ret + "\n " + y + " ";
@@ -94,7 +102,7 @@ public class Board {
           ret = ret + this.board[y][x].toString();
       }
     }
-    ret = ret + "\n";
+    ret = ret + "\n  ";
     for (int i = 0;i < SIZE_X;i++) {
       ret = ret + "  " + i + "";
     }

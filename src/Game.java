@@ -1,6 +1,6 @@
 package arcanor;
 
-public class Game implements IGame{
+public class Game {
 
   //Definition des attributs
 
@@ -24,7 +24,7 @@ public class Game implements IGame{
     this.aBoard = new Board();
     this.mod = mod;
     this.createPlayer(nameP1,color1,nameP2,color2,mod);
-    
+
   }
 
   /**
@@ -49,27 +49,6 @@ public class Game implements IGame{
   }
 
   /**
-   * Menu containing option start quit and other informations
-   */
-  public void startMenu(){
-    System.out.println("Start");                                                //Provisoire
-  }
-
-  /**
-   * Start a new game with a new player1, new player2 and new Board
-   */
-  public void newGame(){
-    System.out.println("new Game");                                              //provisoire
-  }
-
-  /**
-   * Save differents information of the game like a scoreboard
-   */
-  public void scoreMenu(){
-    System.out.println("score");                                                //provisoire
-  }
-
-  /**
    * Allow the user to quit the game
    */
   public void quit(){
@@ -78,22 +57,13 @@ public class Game implements IGame{
 
   //Implementation of the method herited by the interface
 
-  /**
-   * Save the game.
-   */
-  public void save(){}
 
-  /**
-   * load the game.
-   */
-  public void load(){}
 
   /**
    * start the game
    */
-  public void start() {
-    this.current = player1;
-    this.description();
+  public void startGame() {
+    this.current = player2;
     System.out.println(aBoard.toString());
     while (!this.endOfGame()) {
       this.changeCurrent();
@@ -115,25 +85,6 @@ public class Game implements IGame{
   }
 
   /**
-   * End the game
-   * @return (boolean) true if the game is end false otherwise
-   */
-  public boolean endOfGame() {
-    boolean end = false;
-    if ((player1.checkWin()) || (player2.checkWin())) {
-      end = true;
-    }
-    return end;
-  }
-
-  /**
-   * Description of the game
-   */
-  public void description(){
-    System.out.println("description");                                          //provisoire
-  }
-
-  /**
    * Change the current playing player.
    */
   private void changeCurrent(){
@@ -144,6 +95,23 @@ public class Game implements IGame{
     }
   }
 
+  public Player getPlayer1() {
+    return this.player1;
+  }
 
+  public Player getPlayer2() {
+    return this.player2;
+  }
 
+  /**
+   * End the game
+   * @return (boolean) true if the game is end false otherwise
+   */
+  public boolean endOfGame() {
+    boolean end = false;
+    if ((player1.checkWin()) || (player2.checkWin())) {
+      end = true;
+    }
+    return end;
+  }
 }

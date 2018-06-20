@@ -22,9 +22,4 @@ public class IAPlayer extends Player{
     return false;
   }
 
-  /**
-   * Clone the IAPlayer to securize it.
-   * @return (IAPlayer) the cloned version of the IAPlayer
-   */
-  //public IAPlayer clone(){}
 }
