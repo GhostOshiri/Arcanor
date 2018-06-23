@@ -1,6 +1,8 @@
 package arcanor;
+import java.util.*;
+import java.io.*;
 
-public class Game {
+public class Game implements java.io.Serializable{
 
   //Definition des attributs
 
@@ -12,7 +14,7 @@ public class Game {
   //private Extension aExtension; // DLC added
   //private Option aOption;       // Game options
   private Board aBoard;         // Board of the game
-
+  private String nameGame;
   //Class' methods
 
   /**
@@ -20,11 +22,13 @@ public class Game {
   * Initializes the game
   * @param  TODO
   */
-  public Game(Mod mod,String nameP1,PawnColor color1,String nameP2,PawnColor color2) {
+  public Game(Mod mod,String nameP1,PawnColor color1,String nameP2,PawnColor color2, String nameGame) {
     this.aBoard = new Board();
+    this.nameGame = nameGame;
     this.mod = mod;
     this.createPlayer(nameP1,color1,nameP2,color2,mod);
-
+    this.current = player2;
+    this.nbTurn = 0;
   }
 
   /**
@@ -62,11 +66,15 @@ public class Game {
   /**
    * start the game
    */
-  public void startGame() {
-    this.current = player2;
+  public void startGame(ArrayList<Game> tabGame) {
     System.out.println(aBoard.toString());
     while (!this.endOfGame()) {
       this.changeCurrent();
+      if (this.current == this.player1) {
+        this.nbTurn++;
+      }
+      System.out.println("Turn number " + this.nbTurn + " of : " + this.current.getName() + "  (" + this.current.getTeam() + ")");
+      this.save(tabGame);
       if (!current.play()) {
         this.changeCurrent();
         System.out.println("Invalid number of column");
@@ -75,8 +83,10 @@ public class Game {
       }
     }
 
+    tabGame.remove(this);
+    this.save(tabGame);
     System.out.println("►     RESULTS :     ◄\n");
-    String winner = "   ☬ Winner : " + this.current.getTeam() + " ☬";
+    String winner = "   ☬ Winner : " + this.current.getName() + " ☬";
     // add space to adjust the display
     for (int i = winner.length();i < 21;i++) {
       winner = winner + " ";
@@ -103,6 +113,9 @@ public class Game {
     return this.player2;
   }
 
+  public Mod getMod() {
+    return this.mod;
+  }
   /**
    * End the game
    * @return (boolean) true if the game is end false otherwise
@@ -113,5 +126,26 @@ public class Game {
       end = true;
     }
     return end;
+  }
+
+  /**
+   * Save the game.
+   */
+  public void save(ArrayList<Game> tabGame){
+      try {
+         FileOutputStream fos = new FileOutputStream("save.ser");
+         ObjectOutputStream out = new ObjectOutputStream(fos);
+         for (Game g : tabGame) {
+           out.writeObject(g);
+         }
+         out.close();
+         fos.close();
+      } catch (IOException i) {
+         i.printStackTrace();
+      }
+  }
+
+  public String getNameGame() {
+    return this.nameGame;
   }
 }

@@ -3,7 +3,7 @@ package arcanor;
 /**
  * Public class Player
  */
-public abstract class Player{
+public abstract class Player implements java.io.Serializable{
   protected String name;
   protected PawnColor team;
   protected int point;
@@ -48,7 +48,8 @@ public abstract class Player{
       tabPawn[8] = new Pawn(2,0,6,PawnColor.WHITE,null,true);
       tabPawn[9] = new Pawn(1,0,6,PawnColor.WHITE,tabPawn[8],false);
       tabPawn[10] = new Pawn(4,0,7,PawnColor.WHITE,null,true);
-      tabPawn[11] = new Pawn(3,0,7,PawnColor.WHITE,tabPawn[10],false);
+      //tabPawn[11] = new Pawn(3,0,7,PawnColor.WHITE,tabPawn[10],false);
+      tabPawn[11] = new Pawn(12,5,5,PawnColor.WHITE,null,false);
     } else if (team == PawnColor.BLACK){
       tabPawn[0] = new Pawn(2,6,0,PawnColor.BLACK,null,true);
       tabPawn[1] = new Pawn(1,6,0,PawnColor.BLACK,tabPawn[0],false);

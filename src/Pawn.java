@@ -3,7 +3,7 @@ package arcanor;
 /**
  * Pawn class
  */
-public class Pawn {
+public class Pawn implements java.io.Serializable{
 
     private int value;          // the value of the pawn [1-4].
     private int posX;           // the position on the X axis of the pawn.
@@ -11,6 +11,7 @@ public class Pawn {
     private boolean isEaten;    // boolean who's definding if the pawn is eatean by another.
     private Pawn hasEat;        // if this attribute is set, the Pawn has another pawn under him.
     private PawnColor color;    // Color of the pawn(BLACK,WHITE,NONE)
+    private boolean blocked;
 
     /**
      * Constructor of the Pawn class
@@ -29,6 +30,7 @@ public class Pawn {
         this.color = color;
         this.hasEat = hasEat;
         this.isEaten = isEaten;
+        this.blocked = false;
       } else {
         System.out.println("Pawn - Constructor : error parameter");
       }
@@ -43,9 +45,18 @@ public class Pawn {
         this.color = PawnColor.NONE;
         this.hasEat = null;
         this.isEaten = false;
+        this.blocked = false;
       } else {
         System.out.println("Pawn - Constructor : error parameter");
       }
+    }
+
+    public boolean getBlocked() {
+      return this.blocked;
+    }
+
+    public void setBlocked(boolean block) {
+      this.blocked = block;
     }
 
     /**

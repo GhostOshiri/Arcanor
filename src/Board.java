@@ -1,12 +1,12 @@
 package arcanor;
-import view.GridTableFrame;
+//import view.GridTableFrame;
 
-public class Board {
+public class Board implements java.io.Serializable{
 
   private Pawn[][] board;     //  game board
   private final int SIZE_X = 8;   //  board size on the x-axis
   private final int SIZE_Y = 7;   //  board size on the y-axis
-  private GridTableFrame otframe;
+  //private GridTableFrame otframe;
 
   /**
    * Board constructor
@@ -15,8 +15,8 @@ public class Board {
   public Board() {
     initBoard();
     //create and show the graphical grid
-    otframe = new GridTableFrame(this.getBoard());
-    otframe.showIt();
+    //otframe = new GridTableFrame(this.getBoard());
+    //otframe.showIt();
   }
 
   /**
@@ -79,10 +79,12 @@ public class Board {
   public boolean isFree(int x,int y,PawnColor color, int value) {
     boolean free = false;
     if ((x >= 0) && (x < SIZE_X) && (y >= 0) && (y < SIZE_Y)) {
-      if (this.board[y][x].getColor() == PawnColor.NONE) {
-        free = true;
-      } else if ((this.board[y][x].getColor() != color) && (this.board[y][x].getValue() == value+1)) {
-        free = true;
+      if (!this.board[y][x].getBlocked()) {
+        if (this.board[y][x].getColor() == PawnColor.NONE) {
+          free = true;
+        } else if ((this.board[y][x].getColor() != color) && (this.board[y][x].getValue() == value+1)) {
+          free = true;
+        }
       }
     }
 
@@ -94,9 +96,9 @@ public class Board {
    * @return (String) The board display
    */
   public String toString() {
-    otframe.actualized();
+    //otframe.actualized();
     String ret = "";
-    for (int y = 0;y < this.SIZE_Y;y++){
+    for (int y = this.SIZE_Y-1;y >= 0;y--){
       ret = ret + "\n " + y + " ";
       for (int x = 0;x < this.SIZE_X;x++){
           ret = ret + this.board[y][x].toString();

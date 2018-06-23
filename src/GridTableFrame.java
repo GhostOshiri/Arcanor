@@ -1,6 +1,7 @@
 package view;
 
-import javax.swing.JTable;
+import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.Color;
 import arcanor.*;
 
